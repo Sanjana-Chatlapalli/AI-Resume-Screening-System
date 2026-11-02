@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resume Analysis Result</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f7fa;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.navbar{
+    background:#0d6efd;
+}
+
+.navbar-brand,
+.nav-link{
+    color:white !important;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.section-title{
+    color:#0d6efd;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.badge-skill{
+    background:#0d6efd;
+    color:white;
+    margin:5px;
+    padding:8px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+.badge-missing{
+    background:#dc3545;
+    color:white;
+    margin:5px;
+    padding:8px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+.badge-job{
+    background:#198754;
+    color:white;
+    margin:5px;
+    padding:8px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+.progress{
+    height:25px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container">
+
+<a class="navbar-brand">
+AI Resume Screening
+</a>
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+
+<a href="{{ url_for('student_dashboard') }}"
+class="nav-link">
+
+Dashboard
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a href="{{ url_for('logout') }}"
+class="nav-link">
+
+Logout
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+</nav>
+
+<div class="container mt-5">
+
+<div class="card p-4">
+
+<h2 class="text-center text-primary">
+
+Resume Analysis Report
+
+</h2>
+
+<hr>
+
+<h4 class="section-title">
+
+Match Score
+
+</h4>
+
+<div class="progress mb-4">
+
+<div
+class="progress-bar bg-primary"
+style="width: {{ score }}%;">
+
+{{ score }}%
+
+</div>
+
+</div>
+
+<h4 class="section-title">
+
+ATS Score
+
+</h4>
+
+<div class="progress mb-4">
+
+<div
+class="progress-bar bg-success"
+style="width: {{ ats_score }}%;">
+
+{{ ats_score }}%
+
+</div>
+
+</div>
+
+<h4 class="section-title">
+
+Skills Found
+
+</h4>
+
+{% if skills %}
+
+{% for skill in skills %}
+
+<span class="badge-skill">
+
+{{ skill }}
+
+</span>
+
+{% endfor %}
+
+{% else %}
+
+<p>No skills detected.</p>
+
+{% endif %}
+
+<hr>
+
+<h4 class="section-title">
+
+Missing Skills
+
+</h4>
+
+{% if missing_skills %}
+
+{% for skill in missing_skills %}
+
+<span class="badge-missing">
+
+{{ skill }}
+
+</span>
+
+{% endfor %}
+
+{% else %}
+
+<p>No missing skills.</p>
+
+{% endif %}
+
+<hr>
+
+<h4 class="section-title">
+
+Recommended Job Roles
+
+</h4>
+
+{% if recommendations %}
+
+{% for job in recommendations %}
+
+<span class="badge-job">
+
+{{ job }}
+
+</span>
+
+{% endfor %}
+
+{% else %}
+
+<p>No recommendations available.</p>
+
+{% endif %}
+
+<hr>
+
+<h4 class="section-title">
+
+Job Description
+
+</h4>
+
+<div class="border rounded p-3 bg-light">
+
+{{ job_description }}
+
+</div>
+
+<div class="text-center mt-4">
+
+<a
+href="{{ url_for('home') }}"
+class="btn btn-primary">
+
+Analyze Another Resume
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
